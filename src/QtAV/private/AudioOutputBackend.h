@@ -54,7 +54,7 @@ public:
     virtual bool clear() { return false;}
     virtual bool isSupported(const AudioFormat& format) const { return isSupported(format.sampleFormat()) && isSupported(format.channelLayout());}
     // FIXME: workaround. planar convertion crash now!
-    virtual bool isSupported(AudioFormat::SampleFormat f) const { return !AudioFormat::isPlanar(f);}
+    virtual bool isSupported(AudioFormat::SampleFormat f) const { return !IsPlanar(f);}
     // 5, 6, 7 channels may not play
     virtual bool isSupported(AudioFormat::ChannelLayout cl) const { return int(cl) < int(AudioFormat::ChannelLayout_Unsupported);}
     /*!
@@ -75,6 +75,7 @@ public:
     virtual BufferControl bufferControl() const = 0;
     // called by callback with Callback control
     virtual void onCallback();
+    virtual void acquireNextBuffer() {}
     //default return -1. means not the control
     virtual int getPlayedCount() {return -1;} //PlayedCount
     /*!
